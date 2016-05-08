@@ -1,5 +1,6 @@
 package org.imdragon.umrapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -23,7 +24,8 @@ public class LoginScreen extends AppCompatActivity {
         mRef = new Firebase("https://umr-theapp.firebaseio.com");
 
     }
-    public void login (View v){
+
+    public void login(View v) {
         EditText mUsername = (EditText) findViewById(R.id.usernameInput);
         EditText mPassword = (EditText) findViewById(R.id.passwordInput);
 
@@ -46,19 +48,19 @@ public class LoginScreen extends AppCompatActivity {
         EditText mPassword = (EditText) findViewById(R.id.passwordInput);
 
         mRef.createUser(mUsername.getText().toString(), mPassword.getText().toString(),
-                new Firebase.ValueResultHandler<Map<String, Object>>(){
+                new Firebase.ValueResultHandler<Map<String, Object>>() {
 
-            @Override
-            public void onSuccess(Map<String, Object> result) {
-                Toast.makeText(LoginScreen.this, "You're in! ", Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onSuccess(Map<String, Object> result) {
+                        Toast.makeText(LoginScreen.this, "You're in! ", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginScreen.this, ProfileSetup.class));
+                    }
 
-            }
-
-            @Override
-            public void onError(FirebaseError firebaseError) {
-                Toast.makeText(LoginScreen.this, "Try again!", Toast.LENGTH_SHORT).show();
-            }
-        });
+                    @Override
+                    public void onError(FirebaseError firebaseError) {
+                        Toast.makeText(LoginScreen.this, "Try again!", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 }

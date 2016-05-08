@@ -7,8 +7,9 @@ import android.view.View;
 import com.firebase.client.Firebase;
 
 public class MainActivity extends AppCompatActivity {
-Firebase myRef;
-    int i=0;
+    Firebase myRef;
+    int i = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,9 +20,9 @@ Firebase myRef;
 
     }
 
-    public void sayHello (View v){
+    public void sayHello(View v) {
 
-        myRef.child("RandomUser"+i).setValue("Hello this is a test");
+        myRef.child("RandomUser" + i).setValue("Hello this is a test");
         i++;
     }
 }
