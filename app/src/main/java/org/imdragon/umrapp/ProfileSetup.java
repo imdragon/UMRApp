@@ -5,16 +5,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ProfileSetup extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    Firebase mRef;
+    Firebase usersRef;
+    String pName, pAbout, pLocation;
+    private String userID;
+    private String locationString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_setup);
-
+        mRef.setAndroidContext(this);
+        mRef = new Firebase("https://umr-theapp.firebaseio.com");
+        userID = getIntent().getExtras().get("uid").toString();
+        usersRef = mRef.child("users/"+userID);
         Spinner locationSpinner = (Spinner) findViewById(R.id.locationSpinner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -40,7 +54,7 @@ public class ProfileSetup extends AppCompatActivity implements AdapterView.OnIte
      * @param id       The row id of the item that was clicked.
      */
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        
+
     }
 
     /**
@@ -59,10 +73,9 @@ public class ProfileSetup extends AppCompatActivity implements AdapterView.OnIte
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String string = parent.getItemAtPosition(position).toString();
+        locationString = parent.getItemAtPosition(position).toString();
 
         //use the string above for location info
-        Toast.makeText(ProfileSetup.this, string, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -75,5 +88,27 @@ public class ProfileSetup extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public void getProfileInfo() {
+        pName = ((EditText) findViewById(R.id.profileName)).getEditableText().toString();
+        pAbout = ((EditText) findViewById(R.id.profileAbout)).getEditableText().toString();
+
+
+    }
+
+    public void saveProfile(View v) {
+        getProfileInfo();
+        Map<String, String> profileInfo = new HashMap<String, String>();
+        profileInfo.put("name", pName);
+        profileInfo.put("about", pAbout);
+        profileInfo.put("location", locationString);
+
+
+        Map<String, Map<String, String>> users = new HashMap<String, Map<String, String>>();
+        users.put(userID, profileInfo);
+
+        usersRef.setValue(profileInfo);
+//        usersRef.push().setValue(users);
     }
 }

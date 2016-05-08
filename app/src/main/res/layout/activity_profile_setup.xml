@@ -18,9 +18,9 @@
             android:textSize="32sp" />
 
         <TextView
-            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="Please fill out some basic information so we can customize your profile!" />
 
         <ImageView
@@ -30,32 +30,32 @@
 
         <EditText
             android:id="@+id/profileName"
-            android:paddingRight="25dp"
-            android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="\t Enter your name here" />
+            android:hint="\t Enter your name here"
+            android:paddingRight="25dp"
+            android:textAlignment="center" />
 
         <EditText
-            android:layout_marginTop="15dp"
             android:id="@+id/profileAbout"
-android:hint="Write a little about yourself!"
-            android:textAlignment="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:hint="Write a little about yourself!"
+            android:textAlignment="center" />
 
         <Spinner
-            android:layout_gravity="center_horizontal"
             android:id="@+id/locationSpinner"
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
             android:onClick="saveProfile"
             android:text="Save my profile" />
 

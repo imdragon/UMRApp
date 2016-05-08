@@ -53,7 +53,10 @@ public class LoginScreen extends AppCompatActivity {
                     @Override
                     public void onSuccess(Map<String, Object> result) {
                         Toast.makeText(LoginScreen.this, "You're in! ", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginScreen.this, ProfileSetup.class));
+
+                        Intent intent = new Intent(LoginScreen.this, ProfileSetup.class);
+                        intent.putExtra("uid", result.get("uid").toString());
+startActivity(intent);
                     }
 
                     @Override
