@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UMRApp</string>
+    <string name="app_name">United Muslim Relief Volunteer</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->

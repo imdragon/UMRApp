@@ -1,5 +1,6 @@
 package org.imdragon.umrapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -104,11 +105,8 @@ public class ProfileSetup extends AppCompatActivity implements AdapterView.OnIte
         profileInfo.put("about", pAbout);
         profileInfo.put("location", locationString);
 
-
-        Map<String, Map<String, String>> users = new HashMap<String, Map<String, String>>();
-        users.put(userID, profileInfo);
-
         usersRef.setValue(profileInfo);
-//        usersRef.push().setValue(users);
-    }
+        Intent intent = new Intent(this, MyProfile.class);
+        intent.putExtra("uid", userID);
+startActivity(intent);    }
 }

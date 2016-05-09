@@ -1,6 +1,7 @@
 package org.imdragon.umrapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,13 +16,19 @@ import java.util.Map;
 
 public class LoginScreen extends AppCompatActivity {
     Firebase mRef;
+    public static final String PREFS_NAME = "MyPrefsFile";
 
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         mRef.setAndroidContext(this);
         mRef = new Firebase("https://umr-theapp.firebaseio.com");
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+
+        editor = settings.edit();
+
 
     }
 
@@ -33,6 +40,16 @@ public class LoginScreen extends AppCompatActivity {
             @Override
             public void onAuthenticated(AuthData authData) {
                 Toast.makeText(LoginScreen.this, "You successfully logged in!", Toast.LENGTH_SHORT).show();
+                editor.putString(authData.getUid(), "myUID");
+                editor.commit();
+                Intent intent = new Intent(LoginScreen.this, MyProfile.class);
+                intent.putExtra("uid", authData.getUid());
+                //
+                editor.putString(authData.getUid(), "myUID");
+                editor.commit();
+
+                //
+                startActivity(intent);;
             }
 
             @Override
@@ -56,7 +73,12 @@ public class LoginScreen extends AppCompatActivity {
 
                         Intent intent = new Intent(LoginScreen.this, ProfileSetup.class);
                         intent.putExtra("uid", result.get("uid").toString());
-startActivity(intent);
+                        //
+                        editor.putString(result.get("uid").toString(), "myUID");
+                        editor.commit();
+
+                        //
+                        startActivity(intent);
                     }
 
                     @Override
